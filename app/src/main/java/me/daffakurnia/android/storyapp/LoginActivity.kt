@@ -1,6 +1,7 @@
 package me.daffakurnia.android.storyapp
 
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +10,16 @@ import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import me.daffakurnia.android.storyapp.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "login")
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,8 +33,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val pref = AppDataStore.getInstance(dataStore)
+        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
+            AuthViewModel::class.java
+        )
+
         setupView()
-        setupAction()
+        setupAction(authViewModel)
     }
 
     private fun setupView() {
@@ -43,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupAction() {
+    private fun setupAction(authViewModel: AuthViewModel) {
         binding.btnRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
@@ -57,7 +69,16 @@ class LoginActivity : AppCompatActivity() {
                         response: Response<LoginResponse>
                     ) {
                         if (response.isSuccessful) {
+                            val responseBody = response.body()
+                            val tokenLogin = responseBody?.loginResult?.token
+                            tokenLogin?.let { token ->
+                                authViewModel.saveToken(token)
+                            }
                             Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT).show()
+
+                            val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                            moveIntent.putExtra(MainActivity.TOKEN, tokenLogin)
+                            startActivity(moveIntent)
                         } else {
                             Toast.makeText(this@LoginActivity, "Login tidak berhasil", Toast.LENGTH_SHORT).show()
                             Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
