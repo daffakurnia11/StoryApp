@@ -19,4 +19,8 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
+    @GET("stories")
+    fun getAllStories(
+        @HeaderMap token: Map<String, String>
+    ): Call<StoriesResponse>
 }
