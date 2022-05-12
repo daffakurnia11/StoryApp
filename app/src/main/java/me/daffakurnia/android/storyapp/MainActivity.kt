@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.datastore.core.DataStore
@@ -30,30 +32,41 @@ class MainActivity : AppCompatActivity() {
             AuthViewModel::class.java
         )
         authViewModel.loginToken().observe(this) { token: String? ->
-            binding.textView.text = token
+            //binding.textView.text = token
             if (token != null || intent.getStringExtra(TOKEN) != null) {
-                binding.textView.text = token
+                //binding.textView.text = token
             } else {
                 val moveIntent = Intent(this@MainActivity, LoginActivity::class.java)
                 startActivity(moveIntent)
                 finish()
             }
         }
-
-        setupView()
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings -> {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, MenuFragment())
+//                    .addToBackStack(null)
+//                    .commit()
+                return true
+            }
+            R.id.logout -> {
+                val pref = AppDataStore.getInstance(dataStore)
+                val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+                authViewModel.clearToken()
+                finish()
+                return true
+            }
+            else -> return true
         }
-        supportActionBar?.hide()
     }
 
     companion object {

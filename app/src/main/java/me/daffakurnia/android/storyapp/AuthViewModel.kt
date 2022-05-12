@@ -14,4 +14,9 @@ class AuthViewModel(private val pref: AppDataStore) : ViewModel() {
         }
     }
 
+    fun clearToken() {
+        viewModelScope.launch {
+            pref.clearToken()
+        }
+    }
 }

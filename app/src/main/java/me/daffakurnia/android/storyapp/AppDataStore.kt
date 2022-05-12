@@ -21,6 +21,12 @@ class AppDataStore private constructor(private val dataStore: DataStore<Preferen
         }
     }
 
+    suspend fun clearToken() {
+        dataStore.edit { preferences ->
+            preferences.clear()
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: AppDataStore? = null

@@ -34,9 +34,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            AuthViewModel::class.java
-        )
+        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
 
         setupView()
         setupAction(authViewModel)
@@ -44,14 +42,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupView() {
         @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
         supportActionBar?.hide()
     }
 
