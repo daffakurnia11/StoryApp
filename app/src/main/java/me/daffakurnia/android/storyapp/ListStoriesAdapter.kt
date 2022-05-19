@@ -1,5 +1,6 @@
 package me.daffakurnia.android.storyapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,13 @@ class ListStoriesAdapter(private val listStories: ArrayList<Stories>) : Recycler
             .load(photoUrl)
             .into(holder.imgPhoto)
         holder.textViewName.text = name
+        holder.imgPhoto.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.PHOTO_URL, photoUrl)
+            intent.putExtra(DetailActivity.NAME, name)
+            intent.putExtra(DetailActivity.DESCRIPTION, description)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = listStories.size

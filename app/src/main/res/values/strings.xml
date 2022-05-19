@@ -12,4 +12,5 @@
     <string name="register_intro">Silakan registrasi dahulu</string>
     <string name="name">Nama</string>
     <string name="login_ask">Sudah punya akun?</string>
+    <string name="detail_story">Detail Story</string>
 </resources>
