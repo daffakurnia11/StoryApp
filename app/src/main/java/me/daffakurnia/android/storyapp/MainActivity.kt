@@ -110,17 +110,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.settings -> {
-//                supportFragmentManager.beginTransaction()
-//                    .replace(R.id.fragment_container, MenuFragment())
-//                    .addToBackStack(null)
-//                    .commit()
+                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                startActivity(intent)
                 return true
             }
-            R.id.logout -> {
-                val pref = AppDataStore.getInstance(dataStore)
-                val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
-                authViewModel.clearToken()
-                finish()
+            R.id.add_story -> {
                 return true
             }
             else -> return true
