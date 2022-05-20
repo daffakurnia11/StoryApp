@@ -14,4 +14,5 @@
     <string name="login_ask">Sudah punya akun?</string>
     <string name="detail_story">Detail Story</string>
     <string name="settings">Settings</string>
+    <string name="add_story">Add Story</string>
 </resources>

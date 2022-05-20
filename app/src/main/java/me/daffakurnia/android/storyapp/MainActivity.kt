@@ -115,6 +115,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.add_story -> {
+                val intent = Intent(this@MainActivity, StoryActivity::class.java)
+                startActivity(intent)
                 return true
             }
             else -> return true
