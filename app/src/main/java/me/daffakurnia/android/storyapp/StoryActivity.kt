@@ -1,6 +1,7 @@
 package me.daffakurnia.android.storyapp
 
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -25,6 +26,7 @@ class StoryActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.add_story)
 
         binding.buttonCamera.setOnClickListener { startTakePhoto() }
+        binding.buttonGallery.setOnClickListener { startGallery() }
     }
 
     private fun startTakePhoto() {
@@ -42,6 +44,14 @@ class StoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -49,6 +59,16 @@ class StoryActivity : AppCompatActivity() {
             val myFile = File(currentPhotoPath)
             val result = BitmapFactory.decodeFile(myFile.path)
             binding.previewImageView.setImageBitmap(result)
+        }
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+            val myFile = uriToFile(selectedImg, this@StoryActivity)
+            binding.previewImageView.setImageURI(selectedImg)
         }
     }
 }
