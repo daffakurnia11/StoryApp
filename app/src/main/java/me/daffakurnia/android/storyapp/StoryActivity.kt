@@ -2,7 +2,6 @@ package me.daffakurnia.android.storyapp
 
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -25,8 +24,10 @@ class StoryActivity : AppCompatActivity() {
 
         supportActionBar?.title = resources.getString(R.string.add_story)
 
-        binding.buttonCamera.setOnClickListener { startTakePhoto() }
-        binding.buttonGallery.setOnClickListener { startGallery() }
+        binding.apply {
+            buttonCamera.setOnClickListener { startTakePhoto() }
+            buttonGallery.setOnClickListener { startGallery() }
+        }
     }
 
     private fun startTakePhoto() {

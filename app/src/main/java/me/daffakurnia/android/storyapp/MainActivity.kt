@@ -25,8 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private val list = ArrayList<Stories>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,18 +39,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            AuthViewModel::class.java
-        )
+        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
             getAllStories(token)
-            if (token != null || intent.getStringExtra(TOKEN) != null) {
-                getAllStories(token)
-            } else {
-                val moveIntent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(moveIntent)
-                finish()
-            }
         }
     }
 
