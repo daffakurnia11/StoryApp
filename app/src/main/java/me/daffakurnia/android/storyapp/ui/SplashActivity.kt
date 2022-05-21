@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -34,8 +36,14 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             } else {
                 val moveIntent = Intent(this@SplashActivity, LoginActivity::class.java)
-                startActivity(moveIntent)
-                finish()
+
+                val optionCombat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this@SplashActivity,
+                        Pair(binding.imageView, "logo")
+                    )
+
+                startActivity(moveIntent, optionCombat.toBundle())
             }
         }
     }

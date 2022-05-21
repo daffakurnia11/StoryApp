@@ -1,12 +1,18 @@
 package me.daffakurnia.android.storyapp.ui
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -40,6 +46,41 @@ class LoginActivity : AppCompatActivity() {
 
         setupView()
         setupAction(authViewModel)
+        playAnimation()
+    }
+
+    @SuppressLint("Recycle")
+    private fun playAnimation() {
+        val titleTextView = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
+        val messageTextView = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(500)
+        val emailTextView = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
+        val emailEditTextLayout = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val passwordTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
+        val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val loginButton = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
+        val registerTextView = ObjectAnimator.ofFloat(binding.registerTextView, View.ALPHA, 1f).setDuration(500)
+        val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
+
+        val titleText = AnimatorSet().apply {
+            playTogether(titleTextView, messageTextView)
+        }
+
+        val email = AnimatorSet().apply {
+            playTogether(emailTextView, emailEditTextLayout)
+        }
+
+        val password = AnimatorSet().apply {
+            playTogether(passwordTextView, passwordEditTextLayout)
+        }
+
+        val register = AnimatorSet().apply {
+            playTogether(registerTextView, btnRegister)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(titleText, email, password, loginButton, register)
+            start()
+        }
     }
 
     private fun setupView() {
@@ -49,7 +90,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction(authViewModel: AuthViewModel) {
         binding.btnRegister.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            val moveIntent = Intent(this, RegisterActivity::class.java)
+            val optionCombat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@LoginActivity,
+                    Pair(binding.imageView, "logo")
+                )
+
+            startActivity(moveIntent, optionCombat.toBundle())
         }
         binding.loginButton.setOnClickListener {
             if(loginValidation()) {

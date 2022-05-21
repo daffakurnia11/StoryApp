@@ -1,11 +1,14 @@
 package me.daffakurnia.android.storyapp.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import me.daffakurnia.android.storyapp.R
@@ -33,7 +36,15 @@ class ListStoriesAdapter(private val listStories: ArrayList<Stories>) : Recycler
             intent.putExtra(DetailActivity.PHOTO_URL, photoUrl)
             intent.putExtra(DetailActivity.NAME, name)
             intent.putExtra(DetailActivity.DESCRIPTION, description)
-            holder.itemView.context.startActivity(intent)
+
+            val optionCombat: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity,
+                    Pair(holder.imgPhoto, "image"),
+                    Pair(holder.textViewName, "name")
+                )
+
+            holder.itemView.context.startActivity(intent, optionCombat.toBundle())
         }
     }
 
