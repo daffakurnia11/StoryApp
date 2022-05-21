@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.data
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch

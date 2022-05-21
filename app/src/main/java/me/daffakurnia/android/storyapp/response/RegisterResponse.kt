@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.response
 
 import com.google.gson.annotations.SerializedName
 

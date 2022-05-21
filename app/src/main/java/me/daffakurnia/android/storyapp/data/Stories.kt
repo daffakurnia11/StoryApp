@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

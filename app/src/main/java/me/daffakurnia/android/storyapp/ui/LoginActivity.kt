@@ -1,20 +1,22 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.ui
 
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import me.daffakurnia.android.storyapp.data.AppDataStore
+import me.daffakurnia.android.storyapp.data.AuthViewModel
+import me.daffakurnia.android.storyapp.data.ViewModelFactory
+import me.daffakurnia.android.storyapp.api.ApiConfig
 import me.daffakurnia.android.storyapp.databinding.ActivityLoginBinding
+import me.daffakurnia.android.storyapp.response.LoginResponse
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback

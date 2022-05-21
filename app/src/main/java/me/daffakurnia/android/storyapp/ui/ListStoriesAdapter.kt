@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.ui
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import me.daffakurnia.android.storyapp.R
+import me.daffakurnia.android.storyapp.data.Stories
 
 class ListStoriesAdapter(private val listStories: ArrayList<Stories>) : RecyclerView.Adapter<ListStoriesAdapter.ListViewHolder>() {
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

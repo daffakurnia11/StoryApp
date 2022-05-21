@@ -1,16 +1,14 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.ui
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowInsets
-import android.view.WindowManager
 import android.widget.Toast
-import me.daffakurnia.android.storyapp.databinding.ActivityLoginBinding
+import me.daffakurnia.android.storyapp.api.ApiConfig
 import me.daffakurnia.android.storyapp.databinding.ActivityRegisterBinding
+import me.daffakurnia.android.storyapp.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback

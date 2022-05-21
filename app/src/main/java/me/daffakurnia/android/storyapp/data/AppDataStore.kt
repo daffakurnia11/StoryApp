@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

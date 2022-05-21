@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.ui
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import me.daffakurnia.android.storyapp.data.AppDataStore
+import me.daffakurnia.android.storyapp.data.AuthViewModel
+import me.daffakurnia.android.storyapp.data.ViewModelFactory
 import me.daffakurnia.android.storyapp.databinding.ActivitySplashBinding
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "login")

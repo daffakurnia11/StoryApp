@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.customview
 
 import android.content.Context
 import android.graphics.Canvas
@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import me.daffakurnia.android.storyapp.R
 
 class CustomEmailField : AppCompatEditText {
 

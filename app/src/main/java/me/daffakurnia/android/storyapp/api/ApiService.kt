@@ -1,5 +1,8 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.api
 
+import me.daffakurnia.android.storyapp.response.LoginResponse
+import me.daffakurnia.android.storyapp.response.RegisterResponse
+import me.daffakurnia.android.storyapp.response.StoriesResponse
 import retrofit2.Call
 import retrofit2.http.*
 

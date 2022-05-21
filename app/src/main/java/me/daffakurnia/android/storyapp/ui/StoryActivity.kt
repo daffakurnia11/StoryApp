@@ -1,4 +1,4 @@
-package me.daffakurnia.android.storyapp
+package me.daffakurnia.android.storyapp.ui
 
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
@@ -9,7 +9,10 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import me.daffakurnia.android.storyapp.R
+import me.daffakurnia.android.storyapp.createCustomTempFile
 import me.daffakurnia.android.storyapp.databinding.ActivityStoryBinding
+import me.daffakurnia.android.storyapp.uriToFile
 import java.io.File
 
 class StoryActivity : AppCompatActivity() {
