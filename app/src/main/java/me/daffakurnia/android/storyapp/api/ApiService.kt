@@ -1,8 +1,11 @@
 package me.daffakurnia.android.storyapp.api
 
+import me.daffakurnia.android.storyapp.response.AddStoryResponse
 import me.daffakurnia.android.storyapp.response.LoginResponse
 import me.daffakurnia.android.storyapp.response.RegisterResponse
 import me.daffakurnia.android.storyapp.response.StoriesResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,4 +29,12 @@ interface ApiService {
     fun getAllStories(
         @HeaderMap token: Map<String, String>
     ): Call<StoriesResponse>
+
+    @Multipart
+    @POST("stories")
+    fun addNewStory(
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+        @HeaderMap token: Map<String, String>
+    ): Call<AddStoryResponse>
 }
