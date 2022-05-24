@@ -14,12 +14,16 @@ class CustomEmailField : AppCompatEditText {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    )
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0!!.isNotEmpty()) {
@@ -27,12 +31,13 @@ class CustomEmailField : AppCompatEditText {
                 }
             }
 
-            override fun afterTextChanged(p0: Editable?) { }
+            override fun afterTextChanged(p0: Editable?) {}
 
         })
     }
 
-    private fun isValidEmail(text: CharSequence) = android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()
+    private fun isValidEmail(text: CharSequence) =
+        android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()
 
     private fun showError(isError: Boolean) {
         error = if (isError) resources.getString(R.string.email_error) else null

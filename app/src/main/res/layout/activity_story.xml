@@ -33,20 +33,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:text="Camera"
+            android:text="@string/camera"
             app:layout_constraintBottom_toBottomOf="@+id/button_gallery"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/previewImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/previewImageView"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/button_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:text="Gallery"
+            android:text="@string/gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/button_camera"
-            app:layout_constraintTop_toBottomOf="@+id/previewImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/previewImageView"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
     <TextView
@@ -56,12 +58,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingStart="8dp"
-        android:text="Description"
+        android:text="@string/description"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edit_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <EditText
         android:id="@+id/edit_desc"
@@ -79,7 +82,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
-        android:text="Upload"
+        android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

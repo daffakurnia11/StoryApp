@@ -113,11 +113,13 @@ class StoryActivity : AppCompatActivity() {
                 requestImageFile
             )
             val pref = AppDataStore.getInstance(dataStore)
-            val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+            val authViewModel =
+                ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
             authViewModel.loginToken().observe(this) { token: String? ->
                 val bearerToken = HashMap<String, String>()
                 bearerToken["Authorization"] = "Bearer $token"
-                val client = ApiConfig.getApiService().addNewStory(imageMultipart, description, bearerToken)
+                val client =
+                    ApiConfig.getApiService().addNewStory(imageMultipart, description, bearerToken)
                 client.enqueue(object : Callback<AddStoryResponse> {
                     override fun onResponse(
                         call: Call<AddStoryResponse>,
@@ -126,18 +128,24 @@ class StoryActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
-                                Toast.makeText(this@StoryActivity, "Story anda berhasil di upload!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this@StoryActivity,
+                                    "Story anda berhasil di upload!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 val intent = Intent(this@StoryActivity, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
                         } else {
-                            Toast.makeText(this@StoryActivity, "Gagal Upload", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@StoryActivity, "Gagal Upload", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
 
                     override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-                        Toast.makeText(this@StoryActivity, "Gagal Upload $t", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@StoryActivity, "Gagal Upload $t", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 })
             }

@@ -30,7 +30,10 @@ class SettingsActivity : AppCompatActivity() {
         binding.apply {
             logoutMenu.setOnClickListener {
                 val pref = AppDataStore.getInstance(dataStore)
-                val authViewModel = ViewModelProvider(this@SettingsActivity, ViewModelFactory(pref))[AuthViewModel::class.java]
+                val authViewModel = ViewModelProvider(
+                    this@SettingsActivity,
+                    ViewModelFactory(pref)
+                )[AuthViewModel::class.java]
                 authViewModel.clearToken()
                 startActivity(Intent(this@SettingsActivity, LoginActivity::class.java))
                 finish()

@@ -31,7 +31,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+        val authViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
             getAllStories(token)
         }

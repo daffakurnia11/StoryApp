@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.152" />
         <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable-v24/ic_place_holder.xml" value="0.156" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/bg_button.xml" value="0.1525" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/bg_button_disabled.xml" value="0.1525" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.152" />
         <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.152" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.152" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.152" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.152" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_camera.xml" value="0.152" />
+        <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.152" />
         <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/layout/activity_detail.xml" value="0.2586050724637681" />
         <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Project/Android/SUBMISSION/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.25815217391304346" />

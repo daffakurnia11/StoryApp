@@ -28,9 +28,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Logout"
-            android:textStyle="bold"
+            android:text="@string/logout"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/logout_img"
             app:layout_constraintStart_toEndOf="@+id/logout_img"
             app:layout_constraintTop_toTopOf="@+id/logout_img" />

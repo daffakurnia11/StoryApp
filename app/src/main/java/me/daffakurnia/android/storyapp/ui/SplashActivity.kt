@@ -28,7 +28,8 @@ class SplashActivity : AppCompatActivity() {
         setupView()
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+        val authViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
             if (token != null || intent.getStringExtra(MainActivity.TOKEN) != null) {
                 val moveIntent = Intent(this@SplashActivity, MainActivity::class.java)

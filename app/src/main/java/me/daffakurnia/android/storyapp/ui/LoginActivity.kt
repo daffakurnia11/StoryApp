@@ -31,7 +31,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     private lateinit var email: String
     private lateinit var password: String
@@ -42,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+        val authViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
 
         setupView()
         setupAction(authViewModel)
@@ -51,15 +52,24 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("Recycle")
     private fun playAnimation() {
-        val titleTextView = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
-        val messageTextView = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(500)
-        val emailTextView = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
-        val emailEditTextLayout = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val passwordTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
-        val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val loginButton = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
-        val registerTextView = ObjectAnimator.ofFloat(binding.registerTextView, View.ALPHA, 1f).setDuration(500)
-        val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
+        val titleTextView =
+            ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
+        val messageTextView =
+            ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(500)
+        val emailTextView =
+            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
+        val emailEditTextLayout =
+            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val passwordTextView =
+            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
+        val passwordEditTextLayout =
+            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
+        val loginButton =
+            ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
+        val registerTextView =
+            ObjectAnimator.ofFloat(binding.registerTextView, View.ALPHA, 1f).setDuration(500)
+        val btnRegister =
+            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
 
         val titleText = AnimatorSet().apply {
             playTogether(titleTextView, messageTextView)
@@ -100,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(moveIntent, optionCombat.toBundle())
         }
         binding.loginButton.setOnClickListener {
-            if(loginValidation()) {
+            if (loginValidation()) {
                 val client = ApiConfig.getApiService().login(email, password)
                 client.enqueue(object : Callback,
                     retrofit2.Callback<LoginResponse> {
@@ -114,13 +124,18 @@ class LoginActivity : AppCompatActivity() {
                             tokenLogin?.let { token ->
                                 authViewModel.saveToken(token)
                             }
-                            Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT)
+                                .show()
 
                             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
                             moveIntent.putExtra(MainActivity.TOKEN, tokenLogin)
                             startActivity(moveIntent)
                         } else {
-                            Toast.makeText(this@LoginActivity, "Login tidak berhasil", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Login tidak berhasil",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
                         }
                     }
