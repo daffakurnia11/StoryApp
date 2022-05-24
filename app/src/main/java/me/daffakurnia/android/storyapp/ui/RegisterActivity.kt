@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import me.daffakurnia.android.storyapp.R
 import me.daffakurnia.android.storyapp.api.ApiConfig
 import me.daffakurnia.android.storyapp.databinding.ActivityRegisterBinding
 import me.daffakurnia.android.storyapp.response.RegisterResponse
@@ -97,6 +98,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.signupButton.setOnClickListener {
+            showLoading(true)
             if (registerValidation()) {
                 val client = ApiConfig.getApiService().register(name, email, password)
                 client.enqueue(object : Callback,
@@ -105,16 +107,22 @@ class RegisterActivity : AppCompatActivity() {
                         call: Call<RegisterResponse>,
                         response: Response<RegisterResponse>
                     ) {
+                        showLoading(false)
+                        val responseBody = response.body()
                         if (response.isSuccessful) {
                             Toast.makeText(
                                 this@RegisterActivity,
-                                "Registrasi Berhasil",
+                                responseBody?.message,
                                 Toast.LENGTH_SHORT
                             ).show()
+
+                            val moveIntent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            startActivity(moveIntent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@RegisterActivity,
-                                "Registrasi Gagal",
+                                responseBody?.message ?: "Registrasi Gagal",
                                 Toast.LENGTH_SHORT
                             ).show()
                             Log.e(TAG, "onFailure: ${response.message()}")
@@ -144,15 +152,18 @@ class RegisterActivity : AppCompatActivity() {
 
             when {
                 name.isEmpty() -> {
-                    //nameEditText.error = resources.getString(R.string.title_register_activity_layout_1)
+                    nameEditText.error = resources.getString(R.string.no_name)
+                    showLoading(false)
                     isValid = false
                 }
                 email.isEmpty() -> {
-                    //emailEditText.error = resources.getString(R.string.title_register_activity_layout_2)
+                    emailEditText.error = resources.getString(R.string.no_email)
+                    showLoading(false)
                     isValid = false
                 }
                 password.isEmpty() -> {
-                    //passwordEditText.error = resources.getString(R.string.title_register_activity_layout_3)
+                    passwordEditText.error = resources.getString(R.string.no_password)
+                    showLoading(false)
                     isValid = false
                 }
                 else -> {
@@ -160,6 +171,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
             return isValid
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

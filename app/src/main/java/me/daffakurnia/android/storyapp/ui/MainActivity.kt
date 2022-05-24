@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllStories(token: String?) {
+        showLoading(true)
         val bearerToken = HashMap<String, String>()
         bearerToken["Authorization"] = "Bearer $token"
 
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 call: Call<StoriesResponse>,
                 response: Response<StoriesResponse>
             ) {
+                showLoading(false)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
@@ -125,4 +128,11 @@ class MainActivity : AppCompatActivity() {
         const val TOKEN = "token"
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }

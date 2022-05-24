@@ -17,6 +17,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import me.daffakurnia.android.storyapp.R
 import me.daffakurnia.android.storyapp.data.AppDataStore
 import me.daffakurnia.android.storyapp.data.AuthViewModel
 import me.daffakurnia.android.storyapp.data.ViewModelFactory
@@ -110,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(moveIntent, optionCombat.toBundle())
         }
         binding.loginButton.setOnClickListener {
+            showLoading(true)
             if (loginValidation()) {
                 val client = ApiConfig.getApiService().login(email, password)
                 client.enqueue(object : Callback,
@@ -118,14 +120,18 @@ class LoginActivity : AppCompatActivity() {
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
+                        showLoading(false)
+                        val responseBody = response.body()
                         if (response.isSuccessful) {
-                            val responseBody = response.body()
                             val tokenLogin = responseBody?.loginResult?.token
                             tokenLogin?.let { token ->
                                 authViewModel.saveToken(token)
                             }
-                            Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Selamat datang, ${responseBody?.loginResult?.name}",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
                             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
                             moveIntent.putExtra(MainActivity.TOKEN, tokenLogin)
@@ -133,7 +139,7 @@ class LoginActivity : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 this@LoginActivity,
-                                "Login tidak berhasil",
+                                responseBody?.message ?: "Email atau Password salah!",
                                 Toast.LENGTH_SHORT
                             ).show()
                             Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
@@ -142,7 +148,7 @@ class LoginActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         Toast.makeText(this@LoginActivity, "Login Gagal", Toast.LENGTH_SHORT).show()
-                        Log.e(ContentValues.TAG, "onFailure: ${t.message}")
+                        Log.e(ContentValues.TAG, "onError: ${t.message}")
                     }
 
                 })
@@ -158,11 +164,13 @@ class LoginActivity : AppCompatActivity() {
 
             when {
                 email.isEmpty() -> {
-                    //emailEditText.error = resources.getString(R.string.title_register_activity_layout_2)
+                    emailEditText.error = resources.getString(R.string.no_email)
+                    showLoading(false)
                     isValid = false
                 }
                 password.isEmpty() -> {
-                    //passwordEditText.error = resources.getString(R.string.title_register_activity_layout_3)
+                    passwordEditText.error = resources.getString(R.string.no_password)
+                    showLoading(false)
                     isValid = false
                 }
                 else -> {
@@ -170,6 +178,14 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             return isValid
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

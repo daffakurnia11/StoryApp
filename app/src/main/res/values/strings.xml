@@ -22,4 +22,7 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
+    <string name="no_email">Silakan isi email kamu!</string>
+    <string name="no_password">Silakan isi password kamu!</string>
+    <string name="no_name">Silakan isi nama kamu!</string>
 </resources>

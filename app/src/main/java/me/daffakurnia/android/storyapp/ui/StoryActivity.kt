@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -102,6 +103,7 @@ class StoryActivity : AppCompatActivity() {
     }
 
     private fun uploadFile() {
+        showLoading(true)
         val descriptionValue = binding.editDesc.text?.toString()?.trim()
         if (getFile != null && descriptionValue!!.isNotEmpty()) {
             val file = getFile as File
@@ -125,18 +127,17 @@ class StoryActivity : AppCompatActivity() {
                         call: Call<AddStoryResponse>,
                         response: Response<AddStoryResponse>
                     ) {
+                        showLoading(false)
                         if (response.isSuccessful) {
                             val responseBody = response.body()
-                            if (responseBody != null) {
-                                Toast.makeText(
-                                    this@StoryActivity,
-                                    "Story anda berhasil di upload!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                val intent = Intent(this@StoryActivity, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
+                            Toast.makeText(
+                                this@StoryActivity,
+                                responseBody?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this@StoryActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(this@StoryActivity, "Gagal Upload", Toast.LENGTH_SHORT)
                                 .show()
@@ -150,11 +151,20 @@ class StoryActivity : AppCompatActivity() {
                 })
             }
         } else {
+            showLoading(false)
             Toast.makeText(
                 this@StoryActivity,
                 getString(R.string.title_alert_story),
                 Toast.LENGTH_SHORT
             ).show()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
