@@ -45,6 +45,7 @@ class SplashActivity : AppCompatActivity() {
                     )
 
                 startActivity(moveIntent, optionCombat.toBundle())
+                finish()
             }
         }
     }

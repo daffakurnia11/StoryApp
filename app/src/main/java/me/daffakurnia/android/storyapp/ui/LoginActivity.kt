@@ -136,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
                             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
                             moveIntent.putExtra(MainActivity.TOKEN, tokenLogin)
                             startActivity(moveIntent)
+                            finish()
                         } else {
                             Toast.makeText(
                                 this@LoginActivity,

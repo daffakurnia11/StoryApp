@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -36,6 +37,7 @@ class SettingsActivity : AppCompatActivity() {
                 )[AuthViewModel::class.java]
                 authViewModel.clearToken()
                 startActivity(Intent(this@SettingsActivity, LoginActivity::class.java))
+                ActivityCompat.finishAffinity(this@SettingsActivity);
                 finish()
             }
         }
