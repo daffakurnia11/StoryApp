@@ -1,9 +1,6 @@
 package me.daffakurnia.android.storyapp.api
 
-import me.daffakurnia.android.storyapp.response.AddStoryResponse
-import me.daffakurnia.android.storyapp.response.LoginResponse
-import me.daffakurnia.android.storyapp.response.RegisterResponse
-import me.daffakurnia.android.storyapp.response.StoriesResponse
+import me.daffakurnia.android.storyapp.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -26,9 +23,11 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("stories")
-    fun getAllStories(
-        @HeaderMap token: Map<String, String>
-    ): Call<StoriesResponse>
+    suspend fun getPagingStories(
+        @Header("Authorization") Authorization: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): List<ListStoryItem>
 
     @Multipart
     @POST("stories")

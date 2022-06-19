@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -53,4 +54,9 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.room:room-ktx:2.4.0-rc01'
+    kapt 'androidx.room:room-compiler:2.4.0-rc01'
+    implementation "androidx.paging:paging-runtime-ktx:3.1.0"
 }
