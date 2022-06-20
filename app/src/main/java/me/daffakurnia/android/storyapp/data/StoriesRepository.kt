@@ -10,7 +10,7 @@ class StoriesRepository(val token: String, private val apiService: ApiService) {
         return Pager(
             config = PagingConfig(
                 pageSize = 5,
-                initialLoadSize = 5
+                initialLoadSize = 10
             ),
             pagingSourceFactory = {
                 StoriesPagingSource(token, apiService)

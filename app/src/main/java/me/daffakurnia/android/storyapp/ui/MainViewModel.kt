@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import me.daffakurnia.android.storyapp.Injection
-import me.daffakurnia.android.storyapp.data.AppDataStore
 import me.daffakurnia.android.storyapp.data.StoriesRepository
 import me.daffakurnia.android.storyapp.response.ListStoryItem
 

@@ -1,6 +1,5 @@
 package me.daffakurnia.android.storyapp.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -45,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         val pref = AppDataStore.getInstance(dataStore)
         val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
+            showLoading(true)
             val loginToken = "Bearer $token"
             val mainViewModel: MainViewModel by viewModels {
                 ViewModelFactory(loginToken, this@MainActivity)
@@ -54,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitData(lifecycle, it)
             }
             binding.rvStories.adapter = adapter
+            showLoading(false)
         }
     }
 
