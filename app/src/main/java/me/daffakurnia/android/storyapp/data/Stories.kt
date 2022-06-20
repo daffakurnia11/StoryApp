@@ -9,4 +9,6 @@ data class Stories(
     var photoUrl: String?,
     var name: String?,
     var description: String?,
+    var lat: String? = null,
+    var lon: String? = null
 ) : Parcelable

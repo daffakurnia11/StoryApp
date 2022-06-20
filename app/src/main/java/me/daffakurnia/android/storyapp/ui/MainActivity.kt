@@ -65,6 +65,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.maps -> {
+                val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.settings -> {
                 val intent = Intent(this@MainActivity, SettingsActivity::class.java)
                 startActivity(intent)
