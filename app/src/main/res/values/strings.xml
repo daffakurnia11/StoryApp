@@ -25,4 +25,10 @@
     <string name="no_email">Silakan isi email kamu!</string>
     <string name="no_password">Silakan isi password kamu!</string>
     <string name="no_name">Silakan isi nama kamu!</string>
+    <string name="maps">Maps</string>
+    <string name="title_activity_maps">Story on Maps</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

@@ -30,6 +30,12 @@ interface ApiService {
         @HeaderMap token: Map<String, String>
     ): Call<StoriesResponse>
 
+    @GET("stories")
+    fun getMapStories(
+        @HeaderMap token: Map<String, String>,
+        @Query("location") location: Int = 1
+    ): Call<StoriesResponse>
+
     @Multipart
     @POST("stories")
     fun addNewStory(
