@@ -5,7 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Stories(
-    var id: String,
     var photoUrl: String?,
     var name: String?,
     var description: String?,
