@@ -5,10 +5,10 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -16,17 +16,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.daffakurnia.android.storyapp.*
-import me.daffakurnia.android.storyapp.api.ApiConfig
 import me.daffakurnia.android.storyapp.data.AppDataStore
 import me.daffakurnia.android.storyapp.data.AuthViewModel
-import me.daffakurnia.android.storyapp.data.Stories
 import me.daffakurnia.android.storyapp.data.ViewModelFactory
 import me.daffakurnia.android.storyapp.databinding.ActivityMainBinding
-import me.daffakurnia.android.storyapp.response.ListStoryItem
-import me.daffakurnia.android.storyapp.response.StoriesResponse
-import retrofit2.Call
-import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "login")
 
@@ -48,58 +41,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel =
-            ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
-            getAllStories(token)
+            showLoading(true)
+            val loginToken = "Bearer $token"
+            val mainViewModel: MainViewModel by viewModels {
+                ViewModelFactory(loginToken, this@MainActivity)
+            }
+            val adapter = ListStoriesAdapter()
+            mainViewModel.stories.observe(this) {
+                adapter.submitData(lifecycle, it)
+            }
+            binding.rvStories.adapter = adapter
+            showLoading(false)
         }
-    }
-
-    private fun getAllStories(token: String?) {
-        showLoading(true)
-        val bearerToken = HashMap<String, String>()
-        bearerToken["Authorization"] = "Bearer $token"
-
-        val client = ApiConfig.getApiService().getAllStories(bearerToken)
-        client.enqueue(object : Callback, retrofit2.Callback<StoriesResponse> {
-            override fun onResponse(
-                call: Call<StoriesResponse>,
-                response: Response<StoriesResponse>
-            ) {
-                showLoading(false)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        getStories(responseBody.listStory)
-                    }
-                } else {
-                    Log.e(this@MainActivity.toString(), "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                Log.e(this@MainActivity.toString(), "onFailure: ${t.message}")
-            }
-
-        })
-    }
-
-    private fun getStories(listStory: List<ListStoryItem?>?) {
-        val storyList = ArrayList<Stories>()
-
-        if (listStory != null) {
-            for (item in listStory) {
-                storyList.add(
-                    Stories(
-                        item?.photoUrl,
-                        item?.name,
-                        item?.description
-                    )
-                )
-            }
-        }
-        val adapter = ListStoriesAdapter(storyList)
-        binding.rvStories.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
