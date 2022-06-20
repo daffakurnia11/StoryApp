@@ -3,12 +3,16 @@
     package="me.daffakurnia.android.storyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <queries>
         <intent>
@@ -27,9 +31,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBOl0Qh1vto9LW-zpPfFLIVZlUyeDHoO_Y" />
+
+        <activity
+            android:name=".ui.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name=".ui.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,8 +59,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ui.RegisterActivity"
             android:exported="false" />
