@@ -2,15 +2,15 @@ package me.daffakurnia.android.storyapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
+import kotlinx.coroutines.flow.Flow
 import me.daffakurnia.android.storyapp.api.ApiService
-import me.daffakurnia.android.storyapp.response.ListStoryItem
+import me.daffakurnia.android.storyapp.response.StoriesResponseItem
 
-class StoriesRepository(val token: String, private val apiService: ApiService) {
-    fun getQuote(): LiveData<PagingData<ListStoryItem>> {
+class StoriesRepository(private val apiService: ApiService) {
+    fun getStories(token: String): LiveData<PagingData<StoriesResponseItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,
-                initialLoadSize = 10
+                pageSize = 5
             ),
             pagingSourceFactory = {
                 StoriesPagingSource(token, apiService)

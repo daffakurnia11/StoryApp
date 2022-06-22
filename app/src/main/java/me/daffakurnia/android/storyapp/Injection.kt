@@ -6,8 +6,8 @@ import me.daffakurnia.android.storyapp.data.StoriesRepository
 
 object Injection {
 
-    fun provideRepository(token: String, context: Context): StoriesRepository {
+    fun provideRepository(context: Context): StoriesRepository {
         val apiService = ApiConfig.getApiService()
-        return StoriesRepository(token, apiService)
+        return StoriesRepository(apiService)
     }
 }

@@ -16,14 +16,14 @@ import com.bumptech.glide.Glide
 import me.daffakurnia.android.storyapp.R
 import me.daffakurnia.android.storyapp.data.Stories
 import me.daffakurnia.android.storyapp.databinding.ItemRowStoriesBinding
-import me.daffakurnia.android.storyapp.response.ListStoryItem
+import me.daffakurnia.android.storyapp.response.StoriesResponseItem
 import me.daffakurnia.android.storyapp.response.StoriesResponse
 
 class ListStoriesAdapter:
-    PagingDataAdapter<ListStoryItem, ListStoriesAdapter.ListViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<StoriesResponseItem, ListStoriesAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
     class ListViewHolder(private var binding: ItemRowStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ListStoryItem) {
+        fun bind(data: StoriesResponseItem) {
             with(binding) {
                 Glide.with(imgItemPhoto.context)
                     .load(data.photoUrl)
@@ -61,19 +61,19 @@ class ListStoriesAdapter:
     }
 
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoriesResponseItem>() {
             override fun areItemsTheSame(
-                oldItem: ListStoryItem,
-                newItem: ListStoryItem
+                oldItem: StoriesResponseItem,
+                newItem: StoriesResponseItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ListStoryItem,
-                newItem: ListStoryItem
+                oldItem: StoriesResponseItem,
+                newItem: StoriesResponseItem
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
         }
     }

@@ -13,8 +13,12 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import me.daffakurnia.android.storyapp.*
 import me.daffakurnia.android.storyapp.data.AppDataStore
 import me.daffakurnia.android.storyapp.data.AuthViewModel
@@ -26,6 +30,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel: MainViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +52,22 @@ class MainActivity : AppCompatActivity() {
         authViewModel.loginToken().observe(this) { token: String? ->
             showLoading(true)
             val loginToken = "Bearer $token"
-            val mainViewModel: MainViewModel by viewModels {
-                ViewModelFactory(loginToken, this@MainActivity)
+            getData(loginToken)
+            showLoading(false)
+        }
+    }
+
+    private fun getData(loginToken: String) {
+        val adapter = ListStoriesAdapter()
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
             }
-            val adapter = ListStoriesAdapter()
-            mainViewModel.stories.observe(this) {
+        )
+        lifecycleScope.launch {
+            mainViewModel.stories(loginToken).observe(this@MainActivity) {
                 adapter.submitData(lifecycle, it)
             }
-            binding.rvStories.adapter = adapter
-            showLoading(false)
         }
     }
 

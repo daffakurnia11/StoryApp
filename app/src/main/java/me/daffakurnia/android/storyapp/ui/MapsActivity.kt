@@ -33,8 +33,8 @@ import me.daffakurnia.android.storyapp.data.AuthViewModel
 import me.daffakurnia.android.storyapp.data.Stories
 import me.daffakurnia.android.storyapp.data.ViewModelFactory
 import me.daffakurnia.android.storyapp.databinding.ActivityMapsBinding
-import me.daffakurnia.android.storyapp.response.ListStoryItem
 import me.daffakurnia.android.storyapp.response.StoriesResponse
+import me.daffakurnia.android.storyapp.response.StoriesResponseItem
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
@@ -79,7 +79,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        getStories(responseBody.listStory as List<ListStoryItem>)
+                        getStories(responseBody.listStory)
                     }
                 } else {
                     Log.e(this@MapsActivity.toString(), "onFailure: ${response.message()}")
@@ -93,7 +93,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    private fun getStories(listStory: List<ListStoryItem>) {
+    private fun getStories(listStory: List<StoriesResponseItem>) {
         val storyList = ArrayList<Stories>()
 
         for (item in listStory) {

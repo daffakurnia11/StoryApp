@@ -37,7 +37,7 @@ class SettingsActivity : AppCompatActivity() {
                 )[AuthViewModel::class.java]
                 authViewModel.clearToken()
                 startActivity(Intent(this@SettingsActivity, LoginActivity::class.java))
-                ActivityCompat.finishAffinity(this@SettingsActivity);
+                ActivityCompat.finishAffinity(this@SettingsActivity)
                 finish()
             }
         }
