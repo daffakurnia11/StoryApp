@@ -71,10 +71,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         bearerToken["Authorization"] = "Bearer $token"
 
         val client = ApiConfig.getApiService().getMapStories(bearerToken)
-        client.enqueue(object : Callback, retrofit2.Callback<StoriesResponse> {
+        client.enqueue(object : Callback, retrofit2.Callback<StoriesResponse<Any?>> {
             override fun onResponse(
-                call: Call<StoriesResponse>,
-                response: Response<StoriesResponse>
+                call: Call<StoriesResponse<Any?>>,
+                response: Response<StoriesResponse<Any?>>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -86,7 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
 
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<StoriesResponse<Any?>>, t: Throwable) {
                 Log.e(this@MapsActivity.toString(), "onFailure: ${t.message}")
             }
 

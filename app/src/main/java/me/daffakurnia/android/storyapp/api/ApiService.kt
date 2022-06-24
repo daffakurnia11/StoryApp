@@ -28,13 +28,13 @@ interface ApiService {
         @Header("Authorization") Authorization: String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): List<StoriesResponseItem>
+    ): StoriesResponse<List<StoriesResponseItem>>
 
     @GET("stories")
     fun getMapStories(
         @HeaderMap token: Map<String, String>,
         @Query("location") location: Int = 1
-    ): Call<StoriesResponse>
+    ): Call<StoriesResponse<Any?>>
 
     @Multipart
     @POST("stories")

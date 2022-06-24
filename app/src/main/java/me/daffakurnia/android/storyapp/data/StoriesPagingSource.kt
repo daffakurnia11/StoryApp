@@ -17,10 +17,10 @@ class StoriesPagingSource(private val token: String, private val apiService: Api
             val position = params.key ?: INITIAL_PAGE_INDEX
             val responseData = apiService.getPagingStories(token, position, params.loadSize)
 
-            LoadResult.Page(
-                data = responseData,
+            return LoadResult.Page(
+                data = responseData.listStory,
                 prevKey = if (position == INITIAL_PAGE_INDEX) null else position - 1,
-                nextKey = if (responseData.isEmpty()) null else position + 1
+                nextKey = if (responseData.listStory.isEmpty()) null else position + 1
             )
         } catch (retryableError: Exception) {
             LoadResult.Error(retryableError)
