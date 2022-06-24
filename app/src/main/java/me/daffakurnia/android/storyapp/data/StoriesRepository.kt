@@ -2,11 +2,13 @@ package me.daffakurnia.android.storyapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import kotlinx.coroutines.flow.Flow
 import me.daffakurnia.android.storyapp.api.ApiService
 import me.daffakurnia.android.storyapp.response.StoriesResponseItem
 
-class StoriesRepository(private val apiService: ApiService) {
+class StoriesRepository(
+    private val storiesDatabase: StoriesDatabase,
+    private val apiService: ApiService
+) {
     fun getStories(token: String): LiveData<PagingData<StoriesResponseItem>> {
         return Pager(
             config = PagingConfig(

@@ -14,10 +14,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import me.daffakurnia.android.storyapp.*
 import me.daffakurnia.android.storyapp.data.AppDataStore
@@ -48,7 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pref = AppDataStore.getInstance(dataStore)
-        val authViewModel = ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
+        val authViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[AuthViewModel::class.java]
         authViewModel.loginToken().observe(this) { token: String? ->
             showLoading(true)
             val loginToken = "Bearer $token"

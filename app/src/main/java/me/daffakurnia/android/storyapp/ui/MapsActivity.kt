@@ -3,7 +3,6 @@ package me.daffakurnia.android.storyapp.ui
 import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +16,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -71,10 +69,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         bearerToken["Authorization"] = "Bearer $token"
 
         val client = ApiConfig.getApiService().getMapStories(bearerToken)
-        client.enqueue(object : Callback, retrofit2.Callback<StoriesResponse<Any?>> {
+        client.enqueue(object : Callback, retrofit2.Callback<StoriesResponse> {
             override fun onResponse(
-                call: Call<StoriesResponse<Any?>>,
-                response: Response<StoriesResponse<Any?>>
+                call: Call<StoriesResponse>,
+                response: Response<StoriesResponse>
             ) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -86,7 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
 
-            override fun onFailure(call: Call<StoriesResponse<Any?>>, t: Throwable) {
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
                 Log.e(this@MapsActivity.toString(), "onFailure: ${t.message}")
             }
 

@@ -116,7 +116,8 @@ class RegisterActivity : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            val moveIntent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            val moveIntent =
+                                Intent(this@RegisterActivity, LoginActivity::class.java)
                             startActivity(moveIntent)
                             finish()
                         } else {

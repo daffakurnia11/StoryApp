@@ -4,9 +4,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import me.daffakurnia.android.storyapp.api.ApiService
 import me.daffakurnia.android.storyapp.response.StoriesResponseItem
-import java.io.IOException
 
-class StoriesPagingSource(private val token: String, private val apiService: ApiService) : PagingSource<Int, StoriesResponseItem>() {
+class StoriesPagingSource(private val token: String, private val apiService: ApiService) :
+    PagingSource<Int, StoriesResponseItem>() {
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1

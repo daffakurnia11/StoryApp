@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class StoriesResponse<T>(
+data class StoriesResponse(
 
     @field:SerializedName("listStory")
     val listStory: List<StoriesResponseItem>,

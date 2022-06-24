@@ -3,26 +3,21 @@ package me.daffakurnia.android.storyapp.ui
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import me.daffakurnia.android.storyapp.R
-import me.daffakurnia.android.storyapp.data.Stories
 import me.daffakurnia.android.storyapp.databinding.ItemRowStoriesBinding
 import me.daffakurnia.android.storyapp.response.StoriesResponseItem
-import me.daffakurnia.android.storyapp.response.StoriesResponse
 
-class ListStoriesAdapter:
+class ListStoriesAdapter :
     PagingDataAdapter<StoriesResponseItem, ListStoriesAdapter.ListViewHolder>(DIFF_CALLBACK) {
 
-    class ListViewHolder(private var binding: ItemRowStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ListViewHolder(private var binding: ItemRowStoriesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: StoriesResponseItem) {
             with(binding) {
                 Glide.with(imgItemPhoto.context)
@@ -49,7 +44,8 @@ class ListStoriesAdapter:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val binding = ItemRowStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemRowStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
     }
 
